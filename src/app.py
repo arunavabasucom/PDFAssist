@@ -1,7 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 from helpers.getPdf import get_pdf_text
-from helpers.getchunktext import get_chunk_text
+from helpers.getChunkText import get_chunk_text
 from helpers.getVectorStore import get_vector_store
 from helpers.handleUserInput import handle_userInput
 from helpers.getConversationChain import get_conversation_chain
@@ -10,13 +10,12 @@ from helpers.getConversationChain import get_conversation_chain
 def main():
   load_dotenv()
   st.set_page_config(
-    page_title="DocAssist",
-    page_icon=":Book:"
+    page_title="PDFAssist",
+    page_icon="📖"
   )
-  st.header('📖 DocAssist')
-  st.subheader('Chat with multiple PDFs')
-  
+  st.header('📖 PDFAssist')
 
+  ### session states ###
   if "conversation" not in st.session_state:
     st.session_state.conversation = None
   
@@ -25,7 +24,7 @@ def main():
   
   if "messages" not in st.session_state:
     st.session_state.messages = []
-  
+
   # if "option" not in st.session_state:
   #   st.session_state.option = 'gpt-3.5-turbo'
   
@@ -60,7 +59,8 @@ def main():
         st.session_state.conversation = get_conversation_chain(vector_store)
         st.session_state.activate_chat = True
 
-
+  if st.session_state.activate_chat == False:
+    st.subheader('💬 Chat with multiple PDFs')
   
   if st.session_state.activate_chat == True:  
    if prompt := st.chat_input("What is up?"):
@@ -69,8 +69,8 @@ def main():
       st.session_state.messages.append({"role": "user", "avatar" :'👨🏽',"content": prompt})                
       handle_userInput(prompt)
   else:
-     st.write(
-       'Pls Upload your file to chat 💬 with those'
+     st.markdown(
+       '👉 Pls Upload your **PDFs** to chat with those'
      )
   
 
