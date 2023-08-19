@@ -14,8 +14,9 @@ def main():
     page_icon=":Book:"
   )
   st.header('📖 DocAssist')
-  st.subheader('Chat with multiple DOCs')
+  st.subheader('Chat with multiple PDFs')
   
+
   if "conversation" not in st.session_state:
     st.session_state.conversation = None
   
@@ -24,15 +25,28 @@ def main():
   
   if "messages" not in st.session_state:
     st.session_state.messages = []
-    
+  
+  # if "option" not in st.session_state:
+  #   st.session_state.option = 'gpt-3.5-turbo'
+  
   for message in st.session_state.messages:
     with st.chat_message(message["role"],avatar=message['avatar']):
         st.markdown(message["content"])
       
   with st.sidebar:
-    st.subheader('Your Documents')
-    docs = st.file_uploader('Upload your DOCs and click to process'
-                     ,accept_multiple_files=True
+    # st.subheader("🤖 Model")
+    # st.session_state.option = st.selectbox(
+    # 'How would you like to be contacted?',
+    # ('gpt-3.5-turbo', 'flan-t5-xxl', 'Llama-2-7b'))
+    # if st.session_state.option == 'flan-t5-xxl'or 'Llama-2-7b':
+    #   st.write("Coming soon")
+    #   st.session_state.activate_chat = False
+    # else:
+    #  st.session_state.activate_chat = True
+    
+    st.subheader('🔖 Your Documents')
+    docs = st.file_uploader('⬆️ Upload your PDFs  and click to process'
+                     ,accept_multiple_files=True,type=['pdf'],
                      )
     if st.button('Process'):
       with st.spinner('Processing'):
@@ -46,6 +60,8 @@ def main():
         st.session_state.conversation = get_conversation_chain(vector_store)
         st.session_state.activate_chat = True
 
+
+  
   if st.session_state.activate_chat == True:  
    if prompt := st.chat_input("What is up?"):
       with st.chat_message("user",avatar='👨🏽'):

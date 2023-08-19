@@ -3,7 +3,7 @@ from langchain.text_splitter import CharacterTextSplitter
 def get_chunk_text(text):
     text_spliter = CharacterTextSplitter(
         separator="\n",
-        chunk_size=1000,
+        chunk_size=600,
         chunk_overlap=200,
         length_function=len
     )
