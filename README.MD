@@ -38,7 +38,7 @@ Follow these steps to set up the project locally:
 3. **Run the Application:**
 
    ```bash
-   python src/app.py
+   python3 src/app.py
    ```
 
 
