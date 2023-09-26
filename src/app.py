@@ -33,16 +33,14 @@ def main():
         st.markdown(message["content"])
       
   with st.sidebar:
-    # st.subheader("🤖 Model")
-    # st.session_state.option = st.selectbox(
-    # 'How would you like to be contacted?',
-    # ('gpt-3.5-turbo', 'flan-t5-xxl', 'Llama-2-7b'))
-    # if st.session_state.option == 'flan-t5-xxl'or 'Llama-2-7b':
-    #   st.write("Coming soon")
-    #   st.session_state.activate_chat = False
-    # else:
-    #  st.session_state.activate_chat = True
+    st.subheader("🤖 Model")
+    st.session_state.option = st.selectbox(
+    'How would you like to be contacted?',
+    ('gpt-3.5-turbo', 'flan-t5-xxl', 'Llama-2-7b'))
     
+    st.write(st.session_state.option)
+    
+  
     st.subheader('🔖 Your Documents')
     docs = st.file_uploader('⬆️ Upload your PDFs  and click to process'
                      ,accept_multiple_files=True,type=['pdf'],
@@ -56,7 +54,7 @@ def main():
         # create vector store 
         vector_store = get_vector_store(chunk_text)
         # create conversation chain
-        st.session_state.conversation = get_conversation_chain(vector_store)
+        st.session_state.conversation = get_conversation_chain(vector_store ,model_option=st.session_state.option)
         st.session_state.activate_chat = True
 
   if st.session_state.activate_chat == False:
