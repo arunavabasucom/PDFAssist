@@ -1,13 +1,16 @@
-langchain
-PyPDF2
+langchain==0.0.340
+tiktoken==0.4.0
+PyPDF2==3.0.1 
 python-dotenv
 streamlit
-openai
 faiss-cpu
 altair
-tiktoken
-# to use hugging face hub 
+pydantic==1.10.2
+# oss models
 huggingface-hub
+# openai models
+openai
+
 
 #  to use instructor embeddings
 # InstructorEmbedding
